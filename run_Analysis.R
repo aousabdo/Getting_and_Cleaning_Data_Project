@@ -34,6 +34,9 @@ names(testData_labs) <- c("Activity", "ActivityName")
 ## rename column in testData_subj dataframe
 names(testData_subj) <- "Subject"
 
+## Now merge all of the test data in one data frame
+testData <- cbind(testData, testData_labs)
+testData <- cbind(testData, testData_subj)
 
 ##############------------- Now do the same for the training dataset ----------------#################
 ## Read training data set
@@ -43,3 +46,33 @@ trainData_subj <- read.table("./data/UCI_HAR_Dataset/train/subject_train.txt", h
 
 ## visual inspection that the length of the traning data set is consistent 
 cat(nrow(trainData), nrow(trainData_labs), nrow(trainData_subj))
+
+## rename columns in the trainData
+colnames(trainData) <- feature_names$FeatureName
+
+## add new column which contains the name of the corresponding activity to the trainData_labs dataframe
+trainData_labs$V2 <- factor(trainData_labs$V1, levels=activity_names$Activity, labels=activity_names$ActivityName)
+
+## now rename the columns in this dataframe
+names(trainData_labs) <- c("Activity", "ActivityName")
+
+## rename column in trainData_subj dataframe
+names(trainData_subj) <- "Subject"
+
+## Now merge all of the train data in one data frame
+trainData <- cbind(trainData, trainData_labs)
+trainData <- cbind(trainData, trainData_subj)
+
+## Now we merge both data sets in one data set
+All <- rbind(testData, trainData)
+
+## Extracts only the measurements on the mean and standard deviation for each measurement
+Mean_Std <- All[,grep("mean|std", colnames(All))]
+
+# As a check this subset should have the same number of columns as the full merged data set
+if(nrow(All) != nrow(Mean_Std)){
+  print("Error! Your subsetting on the Means and standard deviations is wrong")
+}
+
+## 
+
