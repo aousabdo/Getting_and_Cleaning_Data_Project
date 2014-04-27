@@ -1,3 +1,4 @@
+
 ### Overview
 The script in this repo, run_Analysis.R, performs data cleaning and data merging on the files from the "Human Activity Recognition Using Smartphones Dataset" [experiment](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) . The script reads several files from the training and testing data sets and merges them together for one final dataset. The data can be downloaded [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
 
@@ -11,4 +12,3 @@ The script in this repo, run_Analysis.R, performs data cleaning and data merging
 - Change your working directory to where the `run_Analysis.R` file is
 - Run the script from your R or RStudio councel
 - The final tidy dataset will be saved to the same directory as `Tidy_Data.txt`
-
