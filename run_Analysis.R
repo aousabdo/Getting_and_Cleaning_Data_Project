@@ -74,5 +74,24 @@ if(nrow(All) != nrow(Mean_Std)){
   print("Error! Your subsetting on the Means and standard deviations is wrong")
 }
 
-## 
+## Create a new tidy data set with the average of each variable for each activity and each subject
+
+Ids          <- c("Activity", "ActivityName", "Subject")
+
+## get out the name of all the columns except the ones we wanna melt the merged data set with
+Measures     <- setdiff(colnames(All), Ids)
+
+## melt the data set
+All_melt     <- melt(All, id=Ids, measure.vars=Measures)
+
+## new data set with mean of each variable for each activity and subject 
+All_new <-  dcast(All_melt, ActivityName + Subject ~ variable, mean) 
+
+## save the data to a new file
+write.table(All_new, file="Tidy_Data.txt")
+
+## to make sure the data is saved correctly reread the data and check it
+tidyData <- read.table("Tidy_Data.txt")
+tidyData$ActivityName
+tidyData$Subject
 
